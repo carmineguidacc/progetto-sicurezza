@@ -221,30 +221,6 @@ Caricamento…
   </div>
 </section>
 
-<script>
-  function generaFileFeedback(event) {
-    event.preventDefault(); // blocca invio tradizionale
-
-    const nome = document.getElementById('name').value;
-    const email = document.getElementById('email').value;
-    const messaggio = document.getElementById('messaggio').value;
-
-   const contenuto =
-  `NOME: ${nome}\r\n` +
-  `EMAIL: ${email}\r\n\r\n` +
-  `FEEDBACK:\r\n${messaggio}\r\n`;
-    const blob = new Blob([contenuto], { type: 'text/plain' });
-    const link = document.createElement('a');
-
-    link.href = URL.createObjectURL(blob);
-    link.download = `feedback_${nome.toLowerCase() || 'utente'}.txt`;
-    link.click();
-
-    document.getElementById("confermaInvio").style.display = "block";
-    document.getElementById("feedbackForm").reset();
-  }
-</script>
-
 
 </body>
 </html>
