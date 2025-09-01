@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Progetto Sicurezza Aziendale</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css">
+ 
+</head>
+<body>
+  <header>
+    Progetto Sicurezza Aziendale
+  </header>
+
+  <div class="container">
+
+    <section class="card">
+      <h2>Descrizione situazione-problema</h2>
+      <p style="text-align: justify;">
+
+       Nel campo della sicurezza sul lavoro, una delle attività più complesse ma essenziali è la valutazione dei rischi, un processo attraverso il quale si identificano i pericoli presenti in un contesto lavorativo specifico e si determina il livello di rischio a cui sono esposti i lavoratori. Questa valutazione non è solo un dovere morale verso la protezione della salute, ma anche un obbligo legale stabilito principalmente dal Decreto Legislativo 81/2008, noto come Testo Unico sulla Sicurezza. Il calcolo del fattore di rischio rappresenta un passo centrale in questo processo e richiede competenze tecniche, conoscenza delle normative vigenti e la capacità di analizzare e classificare obiettivamente i pericoli. Essenzialmente, il rischio è una combinazione di tre elementi principali: la probabilità che si verifichi un evento dannoso, la gravità delle possibili conseguenze e la frequenza o la durata dell'esposizione a quel pericolo.
+
+Questi elementi, se valutati correttamente, consentono la definizione del livello di rischio e l'implementazione delle appropriate misure di prevenzione e protezione di conseguenza. Tuttavia, nella pratica, molte aziende affrontano difficoltà nel tradurre la teoria in un metodo di calcolo efficace. Le cause sono numerose: mancanza di strumenti standardizzati, incertezze sui parametri da considerare o difficoltà nell'interpretare le normative. Inoltre, ogni compito comporta rischi specifici che devono essere analizzati caso per caso, rendendo il processo ancora più complesso. A questo proposito, normative come il Decreto Legislativo 81/08, le linee guida INAIL, gli standard ISO 45001 e le direttive europee sulla sicurezza forniscono un preciso quadro metodologico che, se ben applicato, consente una valutazione del rischio affidabile, coerente e documentabile. L'obiettivo non è solo classificare il rischio, ma anche ridurlo attraverso l'adozione di misure tecniche, organizzative e procedurali.
+
+Questo progetto mira a semplificare e supportare questo processo: da un lato, fornendo un documento esplicativo chiaro e accessibile che delinei le metodologie di calcolo del rischio in conformità con le normative; dall'altro, sviluppando un'interfaccia web intuitiva che consenta il download del documento e la consultazione di dati informativi, anche in base al profilo professionale. Sarà inoltre implementato un sistema per associare ciascun compito a un profilo di rischio specifico, sia in termini qualitativi che quantitativi, evitando al contempo di divulgare dati sensibili o tecnicamente errati.
+
+In questo modo, il documento mira a colmare una lacuna frequente nelle aziende: l'assenza di uno strumento facilmente consultabile che mette in relazione il quadro normativo con la realtà operativa, traducendo le normative in criteri pratici e immediatamente applicabili. La soluzione proposta può essere utilizzata come strumento didattico, guida operativa o base per ulteriori sviluppi nel campo della gestione della sicurezza e della formazione dei lavoratori.
+      </p>
+    </section>
+
+    <section class="card">
+      <h2>Documento esplicativo</h2>
+      <a href="fattore_rischio.pdf" target="_blank" class="button">📄 Apri PDF esplicativo</a>
+    </section>
+
+    <section class="card">
+      <h2>Normative sulla Sicurezza</h2>
+      <button class="button" onclick="toggleBox('norme')">📘 Visualizza Normative</button>
+      <div id="norme" class="box">
+        <ul>
+          <li><a href="https://www.normattiva.it/uri-res/N2Ls?urn:nir:stato:decreto.legislativo:2008-04-09;81!vig=" target="_blank" rel="noopener noreferrer">D.Lgs. 81/2008 – Testo unico sulla sicurezza sul lavoro</a></li>
+          <li><a href="https://www.iso.org/standard/63787.html" target="_blank" rel="noopener noreferrer">ISO 45001 – Sistemi di gestione della salute e sicurezza sul lavoro</a></li>
+          <li><a href="https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX%3A31989L0391" target="_blank" rel="noopener noreferrer">Direttiva 89/391/CEE – Principi fondamentali sulla sicurezza</a></li>
+          <li><a href="https://www.inail.it/cs/internet/attivita/prevenzione-e-sicurezza/vl-valutazione-rischi.html" target="_blank" rel="noopener noreferrer">Linee guida INAIL per la valutazione dei rischi</a></li>
+          <li><a href="https://eur-lex.europa.eu/legal-content/IT/TXT/?uri=CELEX%3A32006L0042" target="_blank" rel="noopener noreferrer">Direttiva 2006/42/CE – Direttiva Macchine</a></li>
+	  <li><a href="https://www.garanteprivacy.it/web/guest/home/docweb/-/docweb-display/docweb/1089924" target="_blank" rel="noopener noreferrer">D.Lgs. 196/2003 – Codice in materia di protezione dei dati personali</a></li>
+	  <li><a href="https://eur-lex.europa.eu/eli/reg/2016/679/oj" target="_blank" rel="noopener noreferrer">Regolamento UE 2016/679 – GDPR (General Data Protection Regulation)</a></li>
+         </ul>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Esempio di calcolo del rischio</h2>
+      <label for="professione">Seleziona una professione:</label>
+      <select id="professione" onchange="calcolaRischio()">
+        <option value="">-- Seleziona una professione --</option>
+        <option value="impiegato">Impiegato</option>
+        <option value="operaio">Operaio</option>
+        <option value="dirigente">Dirigente</option>
+        <option value="forze">Forze dell'Ordine</option>
+        <option value="medico">Medico Sanitario</option>
+      </select>
+      <div id="risultato" class="result"></div>
+    </section>
+
+  </div>
+
+  <script>
+    function toggleBox(id) {
+      const box = document.getElementById(id);
+      box.style.display = box.style.display === "block" ? "none" : "block";
+    }
+
+    function calcolaRischio() {
+      const prof = document.getElementById('professione').value;
+      let msg = "";
+      let dettaglio = "";
+
+      switch (prof) {
+        case "impiegato":
+          msg = "Impiegato: Rischio basso (~30%). Postura e stress da ufficio.";
+          dettaglio = `
+            <p><strong>Calcolo dettagliato:</strong></p>
+            <p>Probabilità: 0.3 (30%)<br>
+            Gravità: 0.4 (40%)<br>
+            Esposizione: 0.25 (25%)</p>
+            <p>Rischio = 0.3 × 0.4 × 0.25 = 0.03 (3%)</p>
+            <p><em>Interpretazione:</em> rischio basso ma non trascurabile.</p>
+          `;
+          break;
+        case "operaio":
+          msg = "Operaio: Rischio medio (~55%). Uso macchinari, rumore, movimentazione carichi.";
+          dettaglio = `
+            <p><strong>Calcolo dettagliato:</strong></p>
+            <p>Probabilità: 0.6 (60%)<br>
+            Gravità: 0.7 (70%)<br>
+            Esposizione: 0.8 (80%)</p>
+            <p>Rischio = 0.6 × 0.7 × 0.8 = 0.336 (33.6%)</p>
+            <p><em>Interpretazione:</em> rischio medio, importante adottare misure di sicurezza.</p>
+          `;
+          break;
+        case "dirigente":
+          msg = "Dirigente: Rischio medio (~40%). Stress e responsabilità decisionale.";
+          dettaglio = `
+            <p><strong>Calcolo dettagliato:</strong></p>
+            <p>Probabilità: 0.4 (40%)<br>
+            Gravità: 0.5 (50%)<br>
+            Esposizione: 0.6 (60%)</p>
+            <p>Rischio = 0.4 × 0.5 × 0.6 = 0.12 (12%)</p>
+            <p><em>Interpretazione:</em> rischio moderato, soprattutto stress psicologico.</p>
+          `;
+          break;
+        case "forze":
+          msg = "Forze dell'Ordine: Rischio molto alto (~80%). Aggressioni, stress operativo.";
+          dettaglio = `
+            <p><strong>Calcolo dettagliato:</strong></p>
+            <p>Probabilità: 0.85 (85%)<br>
+            Gravità: 0.9 (90%)<br>
+            Esposizione: 0.9 (90%)</p>
+            <p>Rischio = 0.85 × 0.9 × 0.9 = 0.688 (68.8%)</p>
+            <p><em>Interpretazione:</em> rischio molto elevato, indispensabile equipaggiamento e addestramento.</p>
+          `;
+          break;
+        case "medico":
+          msg = "Personale medico e sanitario: Rischio medio-alto (~65%). Stress, orari intensivi, infezioni.";
+          dettaglio = `
+            <p><strong>Calcolo dettagliato:</strong></p>
+            <p>Probabilità: 0.6 (60%)<br>
+            Gravità: 0.75 (75%)<br>
+            Esposizione: 0.7 (70%)</p>
+            <p>Rischio = 0.6 × 0.75 × 0.7 = 0.315 (31.5%)</p>
+            <p><em>Interpretazione:</em> rischio significativo, necessaria attenzione ai protocolli sanitari.</p>
+          `;
+          break;
+        default:
+          msg = "";
+          dettaglio = "";
+      }
+      document.getElementById("risultato").innerHTML = "<strong>" + msg + "</strong>" + dettaglio;
+    }
+  </script>
+
+<section class="card" style="max-width: 1000px; margin: 0 auto;">
+  <h3 style="text-align: center;">Tabelle di Rischio</h3>
+  <div class="box" style="display: block; background-color: #eaf4fb; border-radius: 12px; padding: 2rem; box-shadow: inset 0 0 6px #b5d1f9; max-width: 800px; margin: 0 auto;">
+
+    <h4 style="text-align: center;">Impiegato</h4>
+    <table border="1" cellpadding="5" style="width: 100%; margin-bottom: 30px;">
+      <tr><th>Tipo di Rischio</th><th>Probabilità</th><th>Gravità</th><th>Rischio Totale</th></tr>
+      <tr><td>Organizzativo</td><td>3</td><td>2</td><td>6</td></tr>
+      <tr><td>Infortuni</td><td>1</td><td>1</td><td>1</td></tr>
+      <tr><td>Informatica / Privacy</td><td>2</td><td>4</td><td>8</td></tr>
+    </table>
+
+    <h4 style="text-align: center;">Operaio</h4>
+    <table border="1" cellpadding="5" style="width: 100%; margin-bottom: 30px;">
+      <tr><th>Tipo di Rischio</th><th>Probabilità</th><th>Gravità</th><th>Rischio Totale</th></tr>
+      <tr><td>Fisico / Meccanico</td><td>4</td><td>4</td><td>16</td></tr>
+      <tr><td>Organizzativo</td><td>3</td><td>2</td><td>6</td></tr>
+      <tr><td>Ergonomico</td><td>3</td><td>3</td><td>9</td></tr>
+    </table>
+
+    <h4 style="text-align: center;">Dirigente</h4>
+    <table border="1" cellpadding="5" style="width: 100%; margin-bottom: 30px;">
+      <tr><th>Tipo di Rischio</th><th>Probabilità</th><th>Gravità</th><th>Rischio Totale</th></tr>
+      <tr><td>Stress lavoro correlato</td><td>3</td><td>3</td><td>9</td></tr>
+      <tr><td>Privacy / Responsabilità</td><td>2</td><td>4</td><td>8</td></tr>
+      <tr><td>Decisionale</td><td>2</td><td>3</td><td>6</td></tr>
+    </table>
+
+    <h4 style="text-align: center;">Medico</h4>
+    <table border="1" cellpadding="5" style="width: 100%; margin-bottom: 30px;">
+      <tr><th>Tipo di Rischio</th><th>Probabilità</th><th>Gravità</th><th>Rischio Totale</th></tr>
+      <tr><td>Biologico</td><td>4</td><td>5</td><td>20</td></tr>
+      <tr><td>Turnazione / Stress</td><td>3</td><td>3</td><td>9</td></tr>
+      <tr><td>Errore clinico</td><td>2</td><td>4</td><td>8</td></tr>
+    </table>
+
+    <h4 style="text-align: center;">Forze dell'Ordine</h4>
+    <table border="1" cellpadding="5" style="width: 100%; margin-bottom: 30px;">
+      <tr><th>Tipo di Rischio</th><th>Probabilità</th><th>Gravità</th><th>Rischio Totale</th></tr>
+      <tr><td>Fisico / Conflitto</td><td>5</td><td>5</td><td>25</td></tr>
+      <tr><td>Psicologico</td><td>3</td><td>3</td><td>9</td></tr>
+      <tr><td>Turni / Stress</td><td>4</td><td>4</td><td>16</td></tr>
+    </table>
+  </div>
+</section>
+
+
+
+<section id="feedback" style="padding: 40px; background-color: #f2f6f9; font-family: 'Times New Roman', serif;">
+  <h2 style="text-align: center; font-size: 28px; color: #333;">Valutazione e Raccolta Feedback</h2>
+  <p style="text-align: justify; max-width: 800px; margin: 0 auto 30px auto;">
+    Ti invitiamo a condividere la tua opinione su questa guida. Il tuo feedback è fondamentale al fine 
+    di raccogliere suggerimenti utili per identificare eventuali aree di miglioramento. 
+    Compila il modulo qui sotto per aiutarci a offrire contenuti sempre più utili e aggiornati.  
+    <div style="text-align: center">                                           
+    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdkz1PNaukITif3-FNjT4iCeLLjDWrJmayl5EfJqQD-oVOzNQ/viewform?embedded=true" target="_blank">CLICCA QUI</a>
+    </div>
+  </p>
+
+
+
+
+
+
+</body>
+</html>
